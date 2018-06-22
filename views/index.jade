@@ -1,33 +1,35 @@
 extends layout
 block content
-  h1= title
-  p Register products:
-  form(name="register", action="/register", method="post")
-    span.label productName
-    input(type="text", name="Product_name", id="pname")
-    span.label Price
-    input(type="number", name="price", id="price" step="0.01")
-    input(type="submit", name="register", value="register")
-  div
-
-  = '\n'
-  p Choose product:
-  form(action="/order", method="post")
-      if products
-        each product in products
-          input(type='radio', name='chosen', value=product.name)
-          |  #{product.name}  #{product.price}
-          br
-        br
-        span.label Insert Desired Amount:
-        input(type="number", name="amount", id="amount", value=0)
-        input(type="submit", name="order", value="order now")
-   = '\n'
-   p Your orders:
-   ul
-    each order in orders
-        - var prodname = "undef"
-        each product in products
-            if product._id == order.productId
-               - prodname = product.name
-        li=  "Product: " + prodname + '| amount :' + order.amount + '| total :' + order.totalSum + "| link :" + order._links.self.href
+  div.row
+    div.col-md-4
+      h1= title
+        p Register products:
+        form(name="register", action="/register", method="post")
+          span.label productName
+          input(type="text", name="Product_name", id="pname")
+          span.label Price
+          input(type="number", name="price", id="price" step="0.01")
+          input(type="submit", name="register", value="register")
+        div
+    div.col-md-4    
+      = '\n'
+      p Choose product:
+      form(action="/order", method="post")
+          if products
+            each product in products
+              input(type='radio', name='chosen', value=product.name)
+              |  #{product.name}  #{product.price}
+              br
+            br
+            span.label Insert Desired Amount:
+            input(type="number", name="amount", id="amount", value=0)
+            input(type="submit", name="order", value="order now")
+      = '\n'
+      p Your orders:
+      ul
+        each order in orders
+            - var prodname = "undef"
+            each product in products
+                if product._id == order.productId
+                  - prodname = product.name
+            li=  "Product: " + prodname + '| amount :' + order.amount + '| total :' + order.totalSum + "| link :" + order._links.self.href
