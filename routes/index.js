@@ -60,7 +60,7 @@ exports.index = function(req, res){
         {
             console.log(body)
             res.render( 'index', {
-                title : 'Orders',
+		title : "Inventory Management System. Version: " + process.env.VERSION,
                 products : products,
                 orders : JSON.parse(body)._embedded.orders
             });
